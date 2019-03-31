@@ -1,0 +1,87 @@
+;---------------------------------------------------------------------------;
+; FoEplus - FoE essential enhancements                                      ;
+; Helps save the most valuable resource in-game and in RL - time            ;
+;                                                                           ;
+; Copyright(c) Ever16/Xyr, v0.2.0                                           ;
+; License: GNU GPLv3                                                        ;
+;                                                                           ;
+; Ctrl-Alt-A: aid all, Esc: stop                                            ;
+; Ctrl-Alt-S: sit all, Esc: stop                                            ;
+; Ctrl-Alt-G: GB hunt, Esc: stop                                            ;
+; Ctrl-Alt-R: RQ loop, Esc: stop                                            ;
+; Ctrl-Alt-U: UBQ loop, Esc: stop                                           ;
+; Ctrl-Alt-W: map watch                                                     ;
+; Ctrl-Alt-F: GB forge                                                      ;
+; Ctrl-Alt-D: left-click                                                    ;
+; Ctrl-Alt-K: keep clicking, Esc: stop                                      ;
+; Ctrl-Alt-P: plus panel on/off                                             ;
+; Ctrl-Alt-O: opacity on/off                                                ;
+; Ctrl-Alt-L: reload FoEplus                                                ;
+; Ctrl-Alt-Shift-P: exit                                                    ;
+;                                                                           ;
+; Make sure to reload after making a change (right-click icon in systray or ;
+; Ctrl-Alt-L)                                                               ;
+;---------------------------------------------------------------------------;
+
+
+
+; Browser window title starts with this.
+title = Forge of Empires
+
+; Delay milliseconds after a click. A shorter delay causes tasks to finish
+; faster but less reliably, while a longer delay makes actions easier to
+; follow, which is useful for trouble-shooting.
+delay = 250
+
+; Browser or display scale (Control Panel -> Display). For reference, it's
+; pixel width of the FP bar (10 FPs back to back) / 100. Works best when
+; browser zoom level is at the default 100%.
+scale = 1
+scale = 1.25
+scale = 1.5
+scale = % A_ScreenDPI / 96 ; try this if auto detect below doesn't work
+scale = 0 ; 0 - auto detect these: 1, 1.25, 1.5, 2
+
+; Clear pop-ups by clicking a safe spot. For displays with limited vertical
+; space, change this to 1.
+clear = 1 ; 1 - always click bottom left corner
+clear = 0 ; 0 - task dependent
+
+; Capture2Text executable full or relative path.
+ocrExe = Capture2Text\Capture2Text.exe
+
+; Following three numbers are used as fallback defaults in case auto detect
+; fails with an OCR error. Include self in all counts. To turn off a list,
+; set its count to 0.
+neighbors = 80
+guildies = 80
+friends = 141
+
+; Aid neighbors?
+aidNeighbors = 0 ; 0 - no
+aidNeighbors = 1 ; 1 - yes
+
+; GB hunt guildies?
+huntGuildies = 0 ; 0 - no
+huntGuildies = 1 ; 1 - yes
+
+; For GB hunt, GB progress percentage threshold and number of GBs to check
+; per player.
+gbPercent = 80
+gbCheck = 5
+
+; Following factor affects GB hunt profit margin. For example, let's say a
+; GB's first position rewards 100 FPs. With arcFactor = 1.8, the GB will be
+; detected when remaining FPs are less than 100 * 1.8 * 2 = 360, allowing
+; potential lock at or below 180. With a level 80 Arc and its 1.9x boost,
+; this will net 10+ FPs or 5%+ profit.
+; (Feature coming soon pending a GB/level database)
+arcFactor = 1.80 ; 1.80 - 5% profit lvl 80
+arcFactor = 0.95 ; 0.95 - 5% profit no Arc
+
+; Time to wait in seconds when posting repeated alerts in chat.
+alertInterval = 300
+
+; Coordinate offset due to scroll bar, status bar etc. Should normally be 0.
+offsetX = 0
+offsetY = 0
