@@ -6,7 +6,7 @@ Gdip_Startup()
 MsgBox, Test: top left portion of the screen will appear in a 640x480 window
 rqHbmp = % ImgHBM(0, 0, 640, 480, "")
 Gui, Destroy
-Gui, Add, Pic, x0 y0, HBITMAP:%rqHbmp%
+Gui, Add, Pic, x0 y0 w640 h480, HBITMAP:%rqHbmp%
 Gui, Show
 
 ImgHBM(x, y, w, h, hwnd)
