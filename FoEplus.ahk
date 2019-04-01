@@ -750,11 +750,6 @@ if ImgFnd(c, cX, cY, delay)
         rqHbmp = % ImgHBM(aX + rqTxt.1, aY + rqTxt.2, rqTxt.3, rqTxt.4, winId)
         rqText = % GetOCR(aX + rqTxt.1, aY + rqTxt.2, rqTxt.3, rqTxt.4, winId)
         rqReady = % InStr(rqText, rqRecur)
-testHbmp = % Gdip_CreateHBITMAPFromBitmap(Gdip_CreateBitmapFromHBITMAP(rqHbmp))
-Gui, 99:Destroy
-Gui, 99:Add, Pic, x0 y0, HBITMAP:%testHbmp%
-Gui, 99:Show
-WinActivate, % "ahk_id" winId
     }
     if rqReady
     {
@@ -785,7 +780,6 @@ Loop, % rqCount
         y2 = % y1 + rqTxt.4 + 4
         ImageSearch,,, x1, y1, x2, y2, *%rqShade% HBITMAP:*%rqHbmp%
         rqFound = % !ErrorLevel
-ToolTip, % "Error code: " ErrorLevel ",  Bitmap: " rqHbmp ", Coords: " yY ", " wW ", " x1 ", " y1 ", " x2 ", " y2, 0, yY + 39
     }
     if !rqFound
     {
