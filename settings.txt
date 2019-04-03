@@ -30,7 +30,7 @@ title = Forge of Empires
 
 ; Delay milliseconds after a click. A shorter delay causes tasks to finish
 ; faster but less reliably, while a longer delay makes actions easier to
-; follow, which is useful for trouble-shooting.
+; follow, which can be useful for trouble-shooting.
 delay = 250
 
 ; Browser or display scale (Control Panel -> Display). For reference, it's

@@ -64,7 +64,7 @@ mcLog = % {}
 #SingleInstance force
 #Include %A_ScriptDir%
 #Include settings.txt
-#Include lib\Gdip.ahk
+#Include lib\Gdip_All.ahk
 
 Gdip_Startup()
 CoordMode, Mouse, Client
@@ -154,8 +154,11 @@ mwSecW    :=  200 * zoom
 mwSecH    :=  150 * zoom
 mwRed     := ["mwRed.png", 0, 0, wW, hH,,,, mwSecH / 2 * zoom]
 mwGreen   := ["mwGreen.png", 0, 0, wW, hH,,,, mwSecH / 2 * zoom]
+mwUnder   := ["mwUnder.png", -300 * zoom, -300 * zoom, 300 * zoom, 300 * zoom]
 mwEnter   := ["mwEnter.png", -mwSecW * zoom, 0, (mwSecW + 48) * zoom, mwSecH * zoom]
-mwTxt     := [wW / 2 - 80 * zoom, 6 * zoom, 160 * zoom, 20 * zoom]
+mwTxt0    := [wW / 2 - 80 * zoom, 6 * zoom, 160 * zoom, 20 * zoom]
+mwTxt1    := [-102 * zoom, -114 * zoom, 281 * zoom, 23 * zoom]
+mwTxt2    := [-64 * zoom, 74 * zoom, 238 * zoom, 24 * zoom]
 return
 
 InitBtl:
@@ -340,7 +343,7 @@ SendD(key, delay)
     if esc
         return
     Send, % key
-    Sleep, delay
+    Sleep, Abs(delay)
 }
 
 ClickD(curX, curY, delay)
@@ -349,10 +352,13 @@ ClickD(curX, curY, delay)
         return
 ;   Click, %curX%, %curY%
     MouseMove, curX, curY
-    Click, Down
-    Sleep, 50
-    Click, Up
-    Sleep, delay
+    if (delay > 0)
+    {
+        Click, Down
+        Sleep, 50
+        Click, Up
+    }
+    Sleep, Abs(delay)
 }
 
 GetTime()
@@ -828,13 +834,7 @@ Loop
         continue
     esc =
     if (a = mwRed && GetYY())
-    {
-        mwHeader = % GetOCR(mwTxt.1, yY + mwTxt.2, mwTxt.3, mwTxt.4, ownId[2])
-        mwHeader = % RegExReplace(mwHeader, "[`r`n]*", "")
-        if !mwHeader
-            mwHeader = <OCR error>
-        AlertGC("Under Siege: " mwHeader, mwMsgX, hH - mwMsgY)
-    }
+        GoSub, RedAlert
     if !autoBattle
         continue
     ClickImg(a, aX, aY, delay / 5)
@@ -852,6 +852,36 @@ Loop
     if (!esc && aX)
         GoSub AutoBtl
 }
+return
+
+RedAlert:
+mwRedTxt0 = % GetOCR(mwTxt0.1, yY + mwTxt0.2, mwTxt0.3, mwTxt0.4, ownId[2])
+mwRedTxt0 = % RegExReplace(Trim(mwRedTxt0), "[^\w ]", "")
+if mwRedTxt0
+if (!Mod(mwRedBtls, 10)
+      || mwRedLast != mwRedTxt0
+      || mwRedTime + alertInterval * 1000 < A_TickCount)
+{
+    ClickImg(a, aX, aY, -delay / 5)
+    MouseGetPos, bX, bY
+    b = % mwUnder
+    b.6 := bX
+    b.7 := bY
+    Loop, 5
+        Sleep, delay
+    Until ImgFnd(b, bX, bY)
+    mwRedTxt1 = % GetOCR(bX + mwTxt1.1, bY + mwTxt1.2, mwTxt1.3, mwTxt1.4, ownId[2])
+    mwRedTxt2 = % GetOCR(bX + mwTxt2.1, bY + mwTxt2.2, mwTxt2.3, mwTxt2.4, ownId[2])
+    mwRedTxt1 = % RegExReplace(Trim(mwRedTxt1), "[^\[\]\d,]", "")
+    mwRedTxt2 = % RegExReplace(Trim(mwRedTxt2), "[^\w ]", "")
+    mwRedTxt1 = % mwRedTxt1? " " mwRedTxt1 : ""
+    mwRedTxt2 = % mwRedTxt2? " by " mwRedTxt2 : ""
+    mwRedLast = % mwRedTxt0
+    mwRedTime = % A_TickCount
+}
+mwRedBtls += 1
+mwRedTxt0 = % mwRedTxt0? mwRedTxt0 mwRedTxt1 mwRedTxt2 : "<OCR error>"
+AlertGC("Under Siege: " mwRedTxt0, mwMsgX, hH - mwMsgY)
 return
 
 AutoBtl:
