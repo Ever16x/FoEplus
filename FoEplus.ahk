@@ -483,7 +483,9 @@ GetOCR(x, y, w, h, hwnd, arg="")
     ocrCap := """" Round(x) " " Round(y) " "
     ocrCap .= Round(x + w) " " Round(y + h) """"
     ocrCmd = %ocrExe% %arg% -s %ocrCap%
-    return ComObjCreate("WScript.Shell").Exec(ocrCmd).StdOut.ReadAll()
+    ocrOut = % ComObjCreate("WScript.Shell").Exec(ocrCmd).StdOut.ReadAll()
+    ocrOut = % RegExReplace(Trim(ocrOut), "^<Error>\s*$", "")
+    return ocrOut
 }
 
 ListNum(list)
@@ -819,6 +821,8 @@ Loop
     GuiControlGet, maxDamage
     GuiControlGet, payLimit
     GuiControl,, gmwSpent, Spent: %payCount%
+    if (btlCount > 0)
+        GuiControl,, btlCount, %btlCount%
     if (maxDamage < 1 || maxDamage > 9)
         GuiControl, Text, maxDamage, 2
     if payLimit is not number
@@ -856,7 +860,7 @@ return
 
 RedAlert:
 mwRedTxt0 = % GetOCR(mwTxt0.1, yY + mwTxt0.2, mwTxt0.3, mwTxt0.4, ownId[2])
-mwRedTxt0 = % RegExReplace(Trim(mwRedTxt0), "[^\w ]", "")
+mwRedTxt0 = % RegExReplace(mwRedTxt0, "[^\w ]", "")
 if mwRedTxt0
 if (!Mod(mwRedBtls, 10)
       || mwRedLast != mwRedTxt0
@@ -867,15 +871,15 @@ if (!Mod(mwRedBtls, 10)
     b = % mwUnder
     b.6 := bX
     b.7 := bY
-    Loop, 5
+    Loop, 10
         Sleep, delay
     Until ImgFnd(b, bX, bY)
     mwRedTxt1 = % GetOCR(bX + mwTxt1.1, bY + mwTxt1.2, mwTxt1.3, mwTxt1.4, ownId[2])
     mwRedTxt2 = % GetOCR(bX + mwTxt2.1, bY + mwTxt2.2, mwTxt2.3, mwTxt2.4, ownId[2])
-    mwRedTxt1 = % RegExReplace(Trim(mwRedTxt1), "[^\[\]\d,]", "")
-    mwRedTxt2 = % RegExReplace(Trim(mwRedTxt2), "[^\w ]", "")
-    mwRedTxt1 = % mwRedTxt1? " " mwRedTxt1 : ""
-    mwRedTxt2 = % mwRedTxt2? " by " mwRedTxt2 : ""
+    mwRedTxt1 = % RegExReplace(mwRedTxt1, "[^\[\]\d,]", "")
+    mwRedTxt2 = % RegExReplace(mwRedTxt2, "[^\w ]", "")
+    mwRedTxt1 = % bX && mwRedTxt1? " " mwRedTxt1 : ""
+    mwRedTxt2 = % bX && mwRedTxt2? " by " mwRedTxt2 : ""
     mwRedLast = % mwRedTxt0
     mwRedTime = % A_TickCount
 }
@@ -890,15 +894,18 @@ GetRGB(aX + btlAchkX, aY + btlAutoY)
 if (red > green + blue * 1.5)
 For i, ad in ["Auto", "Done"]
 {
+    if (ad = "Done")
+    {
+        btlCount += 1
+        GoSub, DoneWait
+    }
     GoSub, PrepArmy
     if armyDamage
     {
         TimerTip("Paused - damage limit", delay * 11, aX + tt%ad%X, aY + tt%ad%Y)
-        return
+        break
     }
     ClickD(aX + btl%ad%X, aY + btl%ad%Y, delay)
-    if (ad = "Auto")
-        GoSub, DoneWait
 }
 return
 
@@ -1045,7 +1052,7 @@ Gui, 21:Font, s8 c0xFFCC99 Bold, Arial
 Gui, 21:Add,     Text, Center w%gmwTextW% xm6 ym2, Map Watch
 Gui, 21:Font, s8 c0xEEEEEE Normal, Microsoft Sans Serif
 Gui, 21:Add, Checkbox, Right  w%gmwTextW% xm-1 ym33 vautoBattle %vautoBattle%, Auto battle
-Gui, 21:Add,     Text, Center w%gmwTextW% xm0, ...
+Gui, 21:Add,     Text, Center w%gmwTextW% xm2 vbtlCount, --
 Gui, 21:Add,     Text, Right  w%gmwTextW% xm0, Unit damage limit
 Gui, 21:Add, ComboBox, Right  w%gmwCtrlW% xm%gmwCpadW% vmaxDamage, %vmaxDamage%
 Gui, 21:Add,     Text, Right  w%gmwTextW% xm0, Heal diamond limit
