@@ -862,9 +862,9 @@ RedAlert:
 mwRedTxt0 = % GetOCR(mwTxt0.1, yY + mwTxt0.2, mwTxt0.3, mwTxt0.4, ownId[2])
 mwRedTxt0 = % RegExReplace(mwRedTxt0, "[^\w ]", "")
 if mwRedTxt0
-if (!Mod(mwRedBtls, 10)
-      || mwRedLast != mwRedTxt0
-      || mwRedTime + alertInterval * 1000 < A_TickCount)
+if (mwRedLast != mwRedTxt0
+ || mwRedTime + alertInterval * 1000 < A_TickCount
+ || autoBattle && !Mod(mwRedBtls, 10))
 {
     ClickImg(a, aX, aY, -delay / 5)
     MouseGetPos, bX, bY
@@ -883,7 +883,8 @@ if (!Mod(mwRedBtls, 10)
     mwRedLast = % mwRedTxt0
     mwRedTime = % A_TickCount
 }
-mwRedBtls += 1
+if autoBattle
+    mwRedBtls += 1
 mwRedTxt0 = % mwRedTxt0? mwRedTxt0 mwRedTxt1 mwRedTxt2 : "<OCR error>"
 AlertGC("Under Siege: " mwRedTxt0, mwMsgX, hH - mwMsgY)
 return
