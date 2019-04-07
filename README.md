@@ -45,6 +45,7 @@ anti-virus software. Rest assured FoEplus is open source and safe.
 * GB hunt
 * Simplified recurring quests
 * GvG map watch
+* GvG auto battle
 
 ## Upcoming
 
