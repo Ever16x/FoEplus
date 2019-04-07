@@ -770,9 +770,9 @@ Loop, % rqCount
 {
     if (esc || !rqReady || rqFound)
         break
-;   GetRGB(clrChkX, hH - clrChkY)
-;   if (red + green + blue < 0x55)
-    if ImgFnd(xyAnchor)
+    GetRGB(clrChkX, hH - clrChkY)
+    if (red + green + blue < 0x55)
+;   if ImgFnd(xyAnchor)
     {
         ClearD(,, 1)
         Sleep, delay * 5
