@@ -9,15 +9,11 @@
 
 [:camera: Screenshot](#screenshot)
 
-## Quick Start (5 seconds)
-
-Run FoEplus, right-click icon in systray
-
 ## Installation (5 minutes)
 
 1. Download and extract [FoEplus](https://github.com/Ever16x/FoEplus/archive/master.zip)
 2. Install [Capture2Text](https://sourceforge.net/projects/capture2text/) - either place it in the existing empty folder, or change "ocrExe" in *settings.txt*
-3. Run *FoEplus.exe*
+3. Run *FoEplus.exe*, right-click icon in systray
 
 Optional - if running source script is preferred over pre-compiled binary:
 
