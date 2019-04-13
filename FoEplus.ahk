@@ -855,6 +855,8 @@ Loop
     MouseMove, gmwHomeX, gmwHomeY
     if (!esc && aX)
         GoSub AutoBtl
+    ClearD()
+    MouseMove, gmwHomeX, gmwHomeY
 }
 return
 
@@ -906,7 +908,7 @@ For i, ad in ["Auto", "Done"]
         TimerTip("Paused - damage limit", delay * 11, aX + tt%ad%X, aY + tt%ad%Y)
         break
     }
-    ClickD(aX + btl%ad%X, aY + btl%ad%Y, delay)
+    ClickD(aX + btl%ad%X, aY + btl%ad%Y, delay * 3)
 }
 return
 

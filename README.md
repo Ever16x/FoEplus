@@ -13,7 +13,7 @@
 
 1. Download and extract [FoEplus](https://github.com/Ever16x/FoEplus/archive/master.zip)
 2. Install [Capture2Text](https://sourceforge.net/projects/capture2text/) - either place it in the existing empty folder, or change "ocrExe" in *settings.txt*
-3. Run *FoEplus.exe*, right-click icon in systray
+3. Run *FoEplus.exe*, right-click systray icon
 
 Optional - if running source script is preferred over pre-compiled binary:
 
