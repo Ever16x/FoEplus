@@ -855,7 +855,6 @@ Loop
     MouseMove, gmwHomeX, gmwHomeY, 0
     if (!esc && aX)
         GoSub AutoBtl
-    ClearD()
     MouseMove, gmwHomeX, gmwHomeY, 0
 }
 return
@@ -910,6 +909,8 @@ For i, ad in ["Auto", "Done"]
     }
     ClickD(aX + btl%ad%X, aY + btl%ad%Y, delay * 3)
 }
+if !armyDamage
+    ClearD()
 return
 
 PrepArmy:
