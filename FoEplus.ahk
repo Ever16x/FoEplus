@@ -811,7 +811,7 @@ LoopMW:
 GoSub, PrepWin
 GoSub, InitMW
 GoSub, InitGmw
-MouseMove, gmwHomeX, gmwHomeY
+MouseMove, gmwHomeX, gmwHomeY, 0
 ToolTip
 Loop
 {
@@ -842,7 +842,7 @@ Loop
     if !autoBattle
         continue
     ClickImg(a, aX, aY, delay / 5)
-    MouseMove, gmwHomeX, gmwHomeY
+    MouseMove, gmwHomeX, gmwHomeY, 0
     a = % mwEnter
     a.6 := aX
     a.7 := aY
@@ -852,11 +852,11 @@ Loop
     Loop, 5
         Sleep, delay
     Until ImgFnd(xyAnchor, aX, aY)
-    MouseMove, gmwHomeX, gmwHomeY
+    MouseMove, gmwHomeX, gmwHomeY, 0
     if (!esc && aX)
         GoSub AutoBtl
     ClearD()
-    MouseMove, gmwHomeX, gmwHomeY
+    MouseMove, gmwHomeX, gmwHomeY, 0
 }
 return
 
