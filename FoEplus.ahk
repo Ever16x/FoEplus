@@ -74,6 +74,7 @@ SetWorkingDir, %A_ScriptDir%
 SetTitleMatchMode, 1
 WinActivate, % title
 GoSub, ChkOCR
+GoSub, ChkDPI
 
 InitTab:
 clrChkX   :=   12 * zoom
@@ -1323,7 +1324,7 @@ ChkOCR:
 ocrErr =
 ErrorLevel =
 if !FileExist(ocrExe)
-    ocrErr = Invalid setting: ocrExe = %ocrExe%
+    ocrErr = Invalid setting: ocrExe = %ocrExe%`r`n(See README in folder Capture2Text)
 else
     RunWait, %ocrExe% -s "0 0 1 1",, Hide
 if ErrorLevel
@@ -1334,6 +1335,13 @@ if ErrorLevel
 }
 if ocrErr
     MsgBox(0x30, "OCR error", ocrErr)
+return
+
+ChkDPI:
+x100 = % Round(A_ScreenDPI / 96 * 100)
+dpiErr = Unsupported display scale: %x100%`%`r`n(Windows Settings -> Display -> Scale, 100`%, reboot)
+if (x100 != 100)
+    MsgBox(0x30, "Scaling issue", dpiErr)
 return
 
 ~Esc::
