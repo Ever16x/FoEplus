@@ -29,10 +29,10 @@ Notes:
 **Anti-virus** - AutoHotkey programs and components are known to sometimes trigger false positives from low grade\
 anti-virus software. Rest assured FoEplus is open source and safe.
 
-*Future Development* - As of Dec. 29, 2019, the program does its job well. However there won't be any future development.\
-If anyone would like to develop the project further, please do not hesitate to contact Ever16x@gmail.com.
-
 ## Caveats
+
+**Future Development** - As of Dec. 29, 2019, the program does its job well. However there won't be any future development.\
+If anyone would like to develop the project further, please do not hesitate to contact Ever16x@gmail.com.
 
 * Currently only supports display scale 100% (Windows Settings -> Display -> Scale)\
 Some features may not work if it's not 100%
