@@ -58,6 +58,9 @@ Some features may not work if it's not 100%
 
 ## Changelog
 
+* 2020-01-20, v0.2.1
+    + Sit-all minor fix due to changes in game v1.165
+
 * 2019-03-30, v0.2.0 (TFW edition, invite-only)
     + Added RQ loop
     + Added map watch

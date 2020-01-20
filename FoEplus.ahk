@@ -2,7 +2,7 @@
 ; FoEplus - FoE essential enhancements                                      ;
 ; Helps save the most valuable resource in-game and in RL - time            ;
 ;                                                                           ;
-; Copyright(c) Ever16/Xyr, v0.2.0                                           ;
+; Copyright(c) Ever16/Xyr, v0.2.1                                           ;
 ; License: GNU GPLv3                                                        ;
 ;                                                                           ;
 ; Ctrl-Alt-A: aid all, Esc: stop                                            ;
@@ -41,7 +41,7 @@ Ctrl-Alt-O: opacity on/off
 Ctrl-Alt-L: reload FoEplus
 Ctrl-Alt-Shift-P: exit
 )
-version = 0.2.0
+version = 0.2.1
 editor = %A_ScriptName% - Notepad
 script = FoEplus
 GoSub, Systray
@@ -612,7 +612,10 @@ Loop, 5
     if (act = "aid" && red > 0x80 && green > 0x40
      || act = "sit" && red > 0x90 && green > 0x80
      || act = "gbh")
+    {
         ClickD(%act%BttnX + asgStepX * (A_Index - 1), hH - %act%BttnY, delay * 3)
+        SendD("{Shift}", 0)
+    }
     if (act = "gbh")
         GoSub, HuntGB
     offX = % act = "aid"? 0 : gbhBttnW / 2
