@@ -13,12 +13,13 @@
 
 1. Download and extract [FoEplus](https://github.com/Ever16x/FoEplus/archive/master.zip)
 2. Install [Capture2Text](https://sourceforge.net/projects/capture2text/) - either place it in the existing empty folder, or change "ocrExe" in *settings.txt*
-3. Run *FoEplus.exe*, right-click systray icon
+3. Run *FoEplus.exe*, right-click systray icon\
+If blocked by Windows Defender, either click More info -> Run anyway, or proceed with the following steps
 
 Optional - if running source script is preferred over pre-compiled binary:
 
 4. Install [AutoHotkey](https://www.autohotkey.com/)
-5. Run (double-click) *FoEplus.ahk* from step #1
+5. Run (double-click) *FoEplus.ahk* from step #1, right-click systray icon
 
 Notes:
 
